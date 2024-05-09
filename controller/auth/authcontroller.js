@@ -2,25 +2,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../../model/users');
-const firebaseService = require('../../service/firebase');
 const validateUserData = require('../../util/SellerValidator');
 const HashPassword = require('../../util/hashPassword')
 const generateJwt = require('../../service/jwt');
 
 
-//signup using firebase 
-//implement role too
-// const signup = async (req, res) => {
-//     try {
-//         const { email, password } = req.body;
-//         console.log(req.body)
-//         const { token } = await firebaseService.signup(email, password);
-//         res.status(200).json({ success: true, token });
-//     } catch (error) {
-//         res.status(400).json({ success: false, error: error.message });
-//         console.log(error.message, 'an error from signup');
-//     }
-// };
 
 const signup = async (req, res, next) => {
     try {
@@ -62,7 +48,7 @@ const signup = async (req, res, next) => {
         res.status(200).json({ status: true, message: "User created successfully", user: newUser, role });
     } catch (error) {
         next(error)
-        res.status(500).json({ status: false, error: error.message });
+        
     }
 }
 
@@ -103,26 +89,26 @@ const login = async (req, res, next) => {
     }
 };
 
-const adminLogout = async (req, res) => {
+const adminLogout = async (req, res,next) => {
     try {
 
         const cookieName = req.cookies.AdminJwtToken
         res.clearCookie(cookieName); 
         res.status(200).json({ success: true, message: "Logged out successfully" });
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+       next(error)
     }
 };
 
 
-const sellerLogout = async (req, res) => {
+const sellerLogout = async (req, res,next) => {
     try {
 
         const cookieName = req.cookies.SellerJwtToken
         res.clearCookie(cookieName);
         res.status(200).json({ success: true, message: "Logged out successfully" });
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+       next(error)
     }
 };
 

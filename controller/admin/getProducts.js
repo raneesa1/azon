@@ -25,7 +25,7 @@ const getSellerProducts = async (req, res, next) => {
         res.status(200).json({ success: true, message: "Successful", products });
     } catch (error) {
         next(error)
-        console.error('Error in fetching seller products:', error);
+       
     }
 };
 

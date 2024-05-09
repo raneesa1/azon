@@ -42,7 +42,7 @@ const addProductForSeller = async (req, res, next) => {
         res.status(201).json({ success: true, message: "Product created successfully", product });
     } catch (error) {
         next(error)
-        console.error('Error in adding product for seller:', error);
+      
 
     }
 };

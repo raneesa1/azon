@@ -19,7 +19,6 @@ const deleteSeller = async (req, res, next) => {
         res.status(200).json({ status: true, message: "seller deleted successfully" });
     } catch (error) {
         next(error)
-        console.error('Error in deleting user:', error);
 
     }
 }

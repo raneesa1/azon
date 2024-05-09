@@ -36,8 +36,7 @@ const addProduct = async (req, res, next) => {
         res.status(200).json({ success: true, message: "Product added successfully", product: newProduct });
     } catch (error) {
         next(error)
-        console.error('Error in adding product:', error);
-        res.status(500).json({ success: false, error: error.message });
+      
     }
 };
 

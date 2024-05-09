@@ -45,7 +45,6 @@ const editProduct = async (req, res, next) => {
         res.status(200).json({ success: true, message: "Product updated successfully", product });
     } catch (error) {
         next(error);
-        console.error('Error in editing product:', error);
     }
 };
 
