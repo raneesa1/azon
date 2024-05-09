@@ -11,7 +11,7 @@ const getAllSellerProducts = async (req, res, next) => {
         }
         
 
-        const products = await ProductModel.find({ seller: sellerId });
+        const products = await ProductModel.find({ seller: sellerId, deleted: false });
 
         console.log(products)
         res.status(200).json({

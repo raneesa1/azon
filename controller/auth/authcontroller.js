@@ -77,10 +77,6 @@ const login = async (req, res, next) => {
             throw new Error("User not registered");
         }
 
-        if (userExist.role !== role) {
-            throw new Error("Please recheck your role and login")
-        }
-
         const passCompare = await bcrypt.compare(password, userExist.password);
         if (!passCompare) {
             throw new Error("Incorrect email or password");
@@ -106,4 +102,31 @@ const login = async (req, res, next) => {
         next(error);
     }
 };
-module.exports = { signup, login };
+
+const adminLogout = async (req, res) => {
+    try {
+
+        const cookieName = req.cookies.AdminJwtToken
+        res.clearCookie(cookieName); 
+        res.status(200).json({ success: true, message: "Logged out successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+
+const sellerLogout = async (req, res) => {
+    try {
+
+        const cookieName = req.cookies.SellerJwtToken
+        res.clearCookie(cookieName);
+        res.status(200).json({ success: true, message: "Logged out successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+
+
+
+module.exports = { signup, login, adminLogout, sellerLogout };

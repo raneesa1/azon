@@ -17,7 +17,7 @@ const getSellerProducts = async (req, res, next) => {
             return res.status(400).json({ success: false, message: "Invalid seller ID format" });
         }
 
-        const products = await ProductModel.find({ seller: sellerId });
+        const products = await ProductModel.find({ seller: sellerId, deleted: false });
         if (!products || products.length === 0) {
             return res.status(400).json({ success: false, message: "No products found for this seller" });
         }

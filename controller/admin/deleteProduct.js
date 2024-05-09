@@ -21,7 +21,8 @@ const deleteSellerProduct = async (req, res ,next) => {
             return res.status(404).json({ success: false, message: "Product not found" });
         }
 
-        await ProductModel.findByIdAndDelete(productId);
+        product.deleted = true;
+        await product.save();
 
         // If product is successfully deleted, return success response
         res.status(200).json({ success: true, message: "Product deleted successfully" });
