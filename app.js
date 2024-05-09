@@ -1,39 +1,32 @@
-const express = require('express')
-const router = express.Router();
-const app = express()
+const express = require('express');
 const connectDB = require('./config/dbconfig');
-require('dotenv').config()
-const path = require('path');
-const ownerRouter = require('./router/owner')
+require('dotenv').config();
+const sellerRouter = require('./router/seller')
 const adminRouter = require('./router/superadmin')
+const authRouter = require('./router/authentication')
+const productRouter = require('./router/product')
+const cookieParser = require('cookie-parser');
+const { errorHandler } = require('./middleware/errorHandler');
 
-// //firebase
-// const firebaseAdmin = require('firebase-admin')
-// const credentials = require('./servicekey')
-// firebaseAdmin.initializeApp({
-//     credential: firebaseAdmin.credential.cert(credentials)
-// })
+const app = express();
 
-
-
-app.use(require('cors')())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(require('cors')());
+app.use(express.json());
+app.use(cookieParser());
 
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs')
+app.use('/api/admin', adminRouter);
+app.use('/api/', authRouter);
+app.use('/api/products', productRouter)
+app.use('/api/seller', sellerRouter)
+app.use(errorHandler)
 
+const PORT = process.env.PORT || 5000;
 
-app.use(express.static('public'))
-app.use('/', ownerRouter)
-app.use('/admin', adminRouter)
+connectDB()
 
+const server = app.listen(PORT, () => {
+    console.log('Server running on port', PORT);
 
-const PORT = 3000
-
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log('server running');
-    });
 });
+module.exports = server
