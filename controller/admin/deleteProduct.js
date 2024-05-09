@@ -1,4 +1,5 @@
 const ProductModel = require('../../model/product');
+const isValidObjectId = require('../../util/objectIdValidator')
 
 const deleteSellerProduct = async (req, res ,next) => {
     try {
@@ -24,7 +25,6 @@ const deleteSellerProduct = async (req, res ,next) => {
         product.deleted = true;
         await product.save();
 
-        // If product is successfully deleted, return success response
         res.status(200).json({ success: true, message: "Product deleted successfully" });
     } catch (error) {
         next(error)

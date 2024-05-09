@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default:'seller'
     },
-    isBlocked: {
+    deleted: {
         type: Boolean,
         default: false,
     },

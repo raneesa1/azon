@@ -17,7 +17,7 @@ app.use(cookieParser());
 
 app.use('/api/admin', adminRouter);
 app.use('/api/', authRouter);
-app.use('/api/products', productRouter)
+app.use('/api/product', productRouter)
 app.use('/api/seller', sellerRouter)
 app.use(errorHandler)
 

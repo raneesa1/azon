@@ -1,21 +1,22 @@
 const SellerModel = require('../../model/users');
-const validateUser = require('../../util/SellerValidator');
 const { isValidObjectId } = require('../../util/objectIdValidator')
 
 
 const editSeller = async (req, res, next) => {
     try {
         const { sellerId } = req.params;
-        const { email, role } = req.body;
+        const { email, role } = req.body.data;
 
         if (!isValidObjectId(sellerId)) {
             return res.status(400).json({ success: false, message: "Invalid seller ID format" });
         }
 
-        const { errors, isValid } = validateUser({ email });
-        if (!isValid) {
-            return res.status(400).json({ success: false, errors });
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ success: false, message: "Invalid email" });
         }
+
 
         const existingUser = await SellerModel.findById(sellerId);
         if (!existingUser) {

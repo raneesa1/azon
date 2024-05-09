@@ -9,12 +9,13 @@ const deleteSeller = async (req, res, next) => {
             return res.status(400).json({ success: false, message: "Invalid seller ID format" });
         }
 
-        const user = await SellerModel.findById(sellerId);
-        if (!user) {
+        const seller = await SellerModel.findById(sellerId);
+        if (!seller) {
             return res.status(400).json({ status: false, message: "seller not found" });
         }
 
-        await SellerModel.findByIdAndDelete(sellerId);
+        seller.deleted = true;
+        await seller.save();
 
         res.status(200).json({ status: true, message: "seller deleted successfully" });
     } catch (error) {
