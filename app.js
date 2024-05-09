@@ -2,7 +2,7 @@ const express = require('express');
 const connectDB = require('./config/dbconfig');
 require('dotenv').config();
 const sellerRouter = require('./router/seller')
-const adminRouter = require('./router/superadmin')
+const adminRouter = require('./router/admin')
 const authRouter = require('./router/authentication')
 const productRouter = require('./router/product')
 const cookieParser = require('cookie-parser');
