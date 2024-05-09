@@ -11,7 +11,6 @@ const generateJwt = require('../../service/jwt');
 const signup = async (req, res, next) => {
     try {
         const { email, password, role } = req.body;
-        console.log(req.body, 'consoling body')
         const userRole = role || 'seller';
 
         if (!req.body?.email) throw new Error("Please provide email");
@@ -33,9 +32,6 @@ const signup = async (req, res, next) => {
             role: userRole
         });
         await newUser.save();
-
-        console.log(req.body.role, 'consoling the role of signup')
-
         const accessToken = generateJwt({ userId: newUser._id, role: userRole });
 
 
@@ -57,7 +53,6 @@ const login = async (req, res, next) => {
     try {
         const { email, password, role } = req.body;
         const userRole = role || 'seller';
-        console.log(req.body)
         const userExist = await UserModel.findOne({ email });
         if (!userExist) {
             throw new Error("User not registered");
@@ -72,7 +67,6 @@ const login = async (req, res, next) => {
             userId: userExist._id,
             role: userExist.role,
         });
-        console.log(process.env.COOKIE_NAME, 'consoling the cookie')
         const cookieName = userRole === 'admin' ? 'AdminJwtToken' : 'SellerJwtToken';
         res.cookie(cookieName, accessToken, {
             httpOnly: true,

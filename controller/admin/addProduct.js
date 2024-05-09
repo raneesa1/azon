@@ -12,9 +12,8 @@ const addProductForSeller = async (req, res, next) => {
         if (!isValidObjectId(sellerId)) {
             return res.status(400).json({ success: false, message: "Invalid seller ID format" });
         }
-        console.log(sellerId)
         const seller = await SellerModel.findById(sellerId);
-        console.log(seller)
+
         if (!seller) {
             return res.status(400).json({ success: false, message: "Seller not found" });
         }
@@ -36,7 +35,7 @@ const addProductForSeller = async (req, res, next) => {
             price
         });
 
-        console.log(newProduct)
+
         const product = await newProduct.save();
 
         res.status(201).json({ success: true, message: "Product created successfully", product });

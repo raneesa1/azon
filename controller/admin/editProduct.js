@@ -21,7 +21,7 @@ const editProductByAdmin = async (req, res, next) => {
         const { name, image, stock, price } = req.body.data;
         const product = await ProductModel.findById(productId);
 
-        console.log(product, "consoling product details before editing")
+
 
         if (!product) {
             return res.status(404).json({ success: false, message: "Product not found" });

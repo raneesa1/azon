@@ -21,7 +21,6 @@ const addProduct = async (req, res, next) => {
 
         const uploadedImages = await uploadImagesToCloudinary(image);
 
-        console.log(uploadedImages, 'image string ')
         const newProduct = new ProductModel({
             seller: sellerId,
             name,

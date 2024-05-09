@@ -11,7 +11,7 @@ const deleteSellerProduct = async (req, res ,next) => {
         if (!isValidObjectId(productId)) {
             return res.status(400).json({ success: false, message: "Invalid product ID format" });
         }
-        console.log(sellerId,productId,'consoling product and seller id ')
+
         if (!sellerId) {
             return res.status(401).json({ success: false, message: 'Unauthorized' });
         }

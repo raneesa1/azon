@@ -5,8 +5,6 @@ const AdminModel = require('.././model/users');
 const authenticateJwtAdmin = async (req, res, next) => {
     try {
         const token = req.cookies.AdminJwtToken;
-
-        console.log(token,'consoling the token of admin')
         if (!token) {
             return res.status(401).json({ success: false, message: 'Unauthorized access' });
         }
@@ -17,8 +15,6 @@ const authenticateJwtAdmin = async (req, res, next) => {
             }
 
             const user = await AdminModel.findById(decoded.payload.userId);
-
-            console.log(user.role,'consling the role from admin token ')
             if (!user || user.role !== 'admin') {
 
                 return res.status(403).json({ success: false, message: 'Unauthorized access' });

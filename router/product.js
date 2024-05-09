@@ -8,7 +8,7 @@ const editSellerProduct = require('../controller/admin/editProduct')
 
 const authenticateJwtAdmin = require('../middleware/jwtAdminAuthentication');
 
-//operations by admin
+//product crud operations by admin
 productRouter.get('/:sellerId/getProducts', authenticateJwtAdmin, getAllProducts)
 productRouter.post('/:sellerId/addProduct', authenticateJwtAdmin, addProduct)
 productRouter.delete('/:sellerId/deleteProduct/:productId', authenticateJwtAdmin,deleteSellerProduct);

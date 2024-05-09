@@ -28,8 +28,6 @@ const editProduct = async (req, res, next) => {
             return res.status(404).json({ success: false, message: "Product not found" });
         }
 
-        console.log(product, "consoling product details before editing")
-
         if (image) {
             const uploadedImages = await uploadImagesToCloudinary(image);
             product.image = uploadedImages;
@@ -40,8 +38,6 @@ const editProduct = async (req, res, next) => {
         if (price) product.price = price;
 
         await product.save();
-
-        console.log(product, "product after updating the product")
         res.status(200).json({ success: true, message: "Product updated successfully", product });
     } catch (error) {
         next(error);

@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 const authenticateSellerJwt = (req, res, next) => {
     try {
         const token = req.cookies.SellerJwtToken;
-
-        console.log(token,"consoeling the token")
         if (!token) {
             return res.status(401).json({ success: false, message: 'Unauthorized access' });
         }
@@ -16,7 +14,6 @@ const authenticateSellerJwt = (req, res, next) => {
             }
 
             const { role } = decoded.payload;
-            console.log(role)
             if (role !== 'seller') {
 
                 return res.status(403).json({ success: false, message: 'Unauthorized access' });
